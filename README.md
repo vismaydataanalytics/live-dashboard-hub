@@ -3,7 +3,7 @@
 Public HTML dashboards at permanent URLs, published with GitHub Actions.
 
 - Hub: https://vismaydataanalytics.github.io/live-dashboard-hub/
-- Sample: https://vismaydataanalytics.github.io/live-dashboard-hub/dashboards/sample/
+- Design Performance: https://vismaydataanalytics.github.io/live-dashboard-hub/dashboards/sample/
 
 This is an independent repository. It has no dependencies on other projects.
 
@@ -15,7 +15,9 @@ This is an independent repository. It has no dependencies on other projects.
 
 To add a dashboard, add its folder and an entry in `dashboards.json`. Never rename an ID after sharing its URL. Local laptop changes are not published until committed and uploaded.
 
-Only reviewed public content belongs here: source and history are public. Do not upload raw company exports, private data, credentials, or private API endpoints. The included dashboard uses synthetic numbers.
+Only reviewed public content belongs here: source and history are public. Do not upload raw company exports, private data, credentials, or private API endpoints. Design Performance is the user-approved public HTML output. The original AI module and proxy configuration are removed from the published copy.
+
+See [laptop publishing instructions](HOW_TO_PUBLISH.md). In the Dashboard_Hub project, use the separate Publishing/live-dashboard-hub folder and double-click Prepare_Public_Update.cmd after regenerating Design_Performance.html. The existing sample URL is retained for continuity.
 
 ## Validation and deployment
 Run `python scripts/build.py` locally. It validates the registry and local HTML links, then builds `dist/`. Only that folder is published. Standard-library Python is sufficient.
@@ -27,4 +29,4 @@ The live build timestamp identifies the build that successfully reached the webs
 To roll back, revert the faulty content commit on main and allow the publishing workflow to deploy the reverted content. Do not republish a stale workflow run.
 
 ## Current scope
-One synthetic pilot dashboard, a multi-dashboard registry, a generated hub, and GitHub Pages deployment. Real dashboards require content review. Hosting provider failure recovery and concurrent-update failure drills have not yet been certified.
+Design Performance, a multi-dashboard registry, a generated hub, and GitHub Pages deployment. Filters, charts, images, and reports stay in the self-contained HTML; AI chat is disabled on the public site. Google Fonts are allowed for typography. Hosting provider failure recovery and concurrent-update failure drills have not yet been certified.
