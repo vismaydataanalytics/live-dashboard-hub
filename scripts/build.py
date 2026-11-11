@@ -54,7 +54,7 @@ def build():
     cards = []
     for item in dashboards:
         cards.append('<article class="card"><h2><a href="dashboards/' + item["id"] + '/">' + html.escape(item["title"]) + '</a></h2><p>' + html.escape(item.get("description", "")) + '</p><p>Source updated: ' + html.escape(item["source_updated_at"]) + '</p></article>')
-    index = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Live Dashboard Hub</title><link rel="stylesheet" href="assets/style.css"></head><body><main><header><p class="eyebrow">Live Dashboard Hub</p><h1>Your dashboards.<br>One place.</h1><p>Open a dashboard below. Every update is published to the same permanent link.</p><span class="badge">Public dashboards</span></header><section class="grid" aria-label="Available dashboards">' + "".join(cards) + '</section><footer>Published build: {{BUILD_TIME}} · Version <code>{{COMMIT}}</code><p>Currently showing synthetic demonstration content.</p></footer></main></body></html>'
+    index = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Live Dashboard Hub</title><link rel="stylesheet" href="assets/style.css"></head><body><main><header><p class="eyebrow">Live Dashboard Hub</p><h1>Your dashboards.<br>One place.</h1><p>Open a dashboard below. Every update is published to the same permanent link.</p><span class="badge">Public dashboards</span></header><section class="grid" aria-label="Available dashboards">' + "".join(cards) + '</section><footer>Published build: {{BUILD_TIME}} · Version <code>{{COMMIT}}</code><p>Only approved public dashboard output is published here.</p></footer></main></body></html>'
     (DIST / "index.html").write_text(index, encoding="utf-8")
     (DIST / ".nojekyll").touch()
     for path in DIST.rglob("*.html"):
@@ -64,6 +64,10 @@ def build():
         parser.feed(text)
         for link in parser.links:
             url = urlsplit(link)
+            if url.scheme == 'https' and url.hostname in {'fonts.googleapis.com', 'fonts.gstatic.com'} and not url.username and not url.password:
+                continue
+            if url.scheme == 'data' and link.startswith(('data:image/png;base64,', 'data:image/jpeg;base64,', 'data:image/webp;base64,', 'data:image/gif;base64,')):
+                continue
             if url.scheme or url.netloc:
                 raise ValueError("External links/assets require review: " + link)
             if not url.path:
