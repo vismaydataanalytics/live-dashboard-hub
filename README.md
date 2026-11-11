@@ -29,4 +29,6 @@ The live build timestamp identifies the build that successfully reached the webs
 To roll back, revert the faulty content commit on main and allow the publishing workflow to deploy the reverted content. Do not republish a stale workflow run.
 
 ## Current scope
+
+Open dashboard pages check for a new published release every 30 seconds and reload automatically when one appears. The same dashboard address is retained. Offline checks leave the current page available and retry later. Viewers with a page opened before this feature was installed must load the updated page once to enable future automatic refreshes.
 Design Performance, a multi-dashboard registry, a generated hub, and GitHub Pages deployment. Filters, charts, images, and reports stay in the self-contained HTML; AI chat is disabled on the public site. Google Fonts are allowed for typography. Hosting provider failure recovery and concurrent-update failure drills have not yet been certified.

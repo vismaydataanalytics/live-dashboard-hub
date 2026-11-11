@@ -51,6 +51,9 @@ def build():
     shutil.copytree(SITE, DIST)
     build_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     commit = os.environ.get("GITHUB_SHA", "local-preview")
+    if commit != 'local-preview' and not re.fullmatch(r'[a-f0-9]{40}', commit):
+        raise ValueError('Invalid release version')
+    (DIST / 'version.json').write_text(json.dumps({'version': commit, 'built_at': build_time}) + '\n', encoding='utf-8')
     cards = []
     for item in dashboards:
         cards.append('<article class="card"><h2><a href="dashboards/' + item["id"] + '/">' + html.escape(item["title"]) + '</a></h2><p>' + html.escape(item.get("description", "")) + '</p><p>Source updated: ' + html.escape(item["source_updated_at"]) + '</p></article>')
@@ -59,6 +62,11 @@ def build():
     (DIST / ".nojekyll").touch()
     for path in DIST.rglob("*.html"):
         text = path.read_text(encoding="utf-8").replace("{{BUILD_TIME}}", html.escape(build_time)).replace("{{COMMIT}}", html.escape(commit))
+        if text.lower().count('</head>') != 1:
+            raise ValueError('Expected exactly one HTML head: ' + path.name)
+        refresh_path = os.path.relpath(DIST / 'assets/auto-refresh.js', path.parent).replace('\\', '/')
+        refresh = '<meta name="dashboard-version" content="' + html.escape(commit, quote=True) + '"><script defer src="' + refresh_path + '?v=' + commit + '"></script>'
+        text = re.sub(r'</head>', lambda match: refresh + match.group(0), text, count=1, flags=re.IGNORECASE)
         path.write_text(text, encoding="utf-8")
         parser = Links()
         parser.feed(text)
