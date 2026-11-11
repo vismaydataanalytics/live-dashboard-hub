@@ -1,5 +1,13 @@
 # Publish dashboard updates from this laptop
 
+## Normal use: Run_All.bat
+
+In Dashboard_Hub, update your inputs and double-click Run_All.bat. After the one-time GitHub sign-in, it generates the reports and HTML, removes AI from the public copy, validates, uploads, and verifies the live version automatically. Wait for PUBLISHED SUCCESSFULLY; no browser upload is needed.
+
+Viewers who have loaded the updated dashboard get automatic refreshes when a new release is published. Pages check every 30 seconds and also when a viewer returns to the tab. Older pages opened before automatic refresh was installed need one reload to acquire this feature. Refreshing reloads the page; in-page filter selections can reset.
+
+The steps below describe the optional manual fallback.
+
 ## Your working folders
 
 The existing Dashboard_Hub project contains the dashboard generator and raw inputs. The separate `Publishing/live-dashboard-hub` folder is the public publishing repository. Only reviewed HTML output belongs in that repository. Do not upload the entire Dashboard_Hub project.

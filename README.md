@@ -17,7 +17,7 @@ To add a dashboard, add its folder and an entry in `dashboards.json`. Never rena
 
 Only reviewed public content belongs here: source and history are public. Do not upload raw company exports, private data, credentials, or private API endpoints. Design Performance is the user-approved public HTML output. The original AI module and proxy configuration are removed from the published copy.
 
-See [laptop publishing instructions](HOW_TO_PUBLISH.md). In the Dashboard_Hub project, use the separate Publishing/live-dashboard-hub folder and double-click Prepare_Public_Update.cmd after regenerating Design_Performance.html. The existing sample URL is retained for continuity.
+In the Dashboard_Hub project, double-click Run_All.bat to generate, validate, upload, and verify the dashboard automatically. The separate Publishing/live-dashboard-hub checkout receives only the prepared public output. See [laptop publishing instructions](HOW_TO_PUBLISH.md) for automatic publishing and the manual fallback. The existing sample URL is retained for continuity.
 
 ## Validation and deployment
 Run `python scripts/build.py` locally. It validates the registry and local HTML links, then builds `dist/`. Only that folder is published. Standard-library Python is sufficient.
