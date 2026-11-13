@@ -4,5 +4,11 @@
     "title": "Design Performance",
     "description": "VISMAY designer sell-through dashboard. Public version with AI disabled.",
     "source_updated_at": "2026-11-11T12:11:35Z"
+  },
+  {
+    "id": "ptpl-mrm",
+    "title": "PTPL MRM Combined",
+    "description": "PAVOS TEX four-division MRM dashboard (Fashion + FO, Intimates, SIS, Retail). Public version with AI disabled.",
+    "source_updated_at": "2026-11-13T05:59:29Z"
   }
 ]
